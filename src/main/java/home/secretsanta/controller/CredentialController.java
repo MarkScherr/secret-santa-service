@@ -1,27 +1,29 @@
-package home.secretsata.controller;
+package home.secretsanta.controller;
 
-import home.secretsanta.model.CredentialDto;
+import home.secretsanta.model.dto.CredentialDto;
 import home.secretsanta.service.CredentialService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 public class CredentialController {
-    private static final String CREDENTIAL_URI = "/credential";
+    private static final String CREATE_CREDENTIAL_ENDPOINT = "/credential/create";
+    private static final String VERIFY_CREDENTIAL_ENDPOINT = "/credential/verify";
 
-    @Autowired
-    private CredentialService service;
+    private final CredentialService service;
 
-    @PostMapping(CREDENTIAL_URI)
-    private Integer createCredentials(@RequestBody CredentialDto credentialDto) {
+    public CredentialController(CredentialService service) {
+        this.service = service;
+    }
+
+    @PostMapping(CREATE_CREDENTIAL_ENDPOINT)
+    public Integer createCredentials(@RequestBody CredentialDto credentialDto) {
         return service.createCredentials(credentialDto);
     }
 
-    @PostMapping(CREDENTIAL_URI)
-    private Integer verifyCredentials(@RequestBody CredentialDto credentialDto) {
+    @PostMapping(VERIFY_CREDENTIAL_ENDPOINT)
+    public Integer verifyCredentials(@Valid @RequestBody CredentialDto credentialDto) {
         return service.verifyCredentials(credentialDto);
     }
-
-
-
 }

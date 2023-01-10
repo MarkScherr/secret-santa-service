@@ -1,7 +1,7 @@
 package home.secretsanta.service;
 
 import home.secretsanta.model.Credential;
-import home.secretsanta.model.CredentialDto;
+import home.secretsanta.model.dto.CredentialDto;
 import home.secretsanta.model.User;
 import home.secretsanta.repositories.CredentialRepository;
 import home.secretsanta.repositories.UserRepository;
@@ -31,6 +31,7 @@ public class CredentialService {
         Credential credential = new Credential();
         credential.setUserName(credentialDto.getUserName());
         credential.setPassword(credentialDto.getPassword());
+        credential.setPhoneNumber(credentialDto.getPhoneNumber());
         return credential;
     }
 

@@ -1,12 +1,7 @@
-package home.secretsanta.model;
+package home.secretsanta.model.dto;
 
 import lombok.Data;
 import lombok.NonNull;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Data
 public class CredentialDto {
