@@ -37,3 +37,8 @@ CREATE TABLE user_recipient (
 	user_id INTEGER,
     recipient_user_id INTEGER
 );
+
+CREATE TABLE user_reject (
+	user_id INTEGER,
+    reject_user_id INTEGER
+);

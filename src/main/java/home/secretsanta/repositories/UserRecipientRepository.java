@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRecipientRepository extends JpaRepository<UserRecipient, UserRecipient> {
     UserRecipient findByUserId(Integer userId);
+
 }
