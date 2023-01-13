@@ -1,0 +1,10 @@
+.list-group-item.active {
+    background-color: #C54245;
+    border-color: #000000;
+}
+
+#replyBoxTextArea {
+    margin-top: 17px;
+    font-family: "Ebrima", Times, serif;
+    font-size: 24pt;
+}

@@ -18,6 +18,7 @@ public class CredentialController {
     }
 
     @PostMapping(CREATE_CREDENTIAL_ENDPOINT)
+//    @CrossOrigin(origins = "http://localhost:63342/*")
     public Integer createCredentials(@RequestBody CredentialDto credentialDto) {
         return service.createCredentials(credentialDto);
     }

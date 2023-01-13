@@ -8,7 +8,6 @@ import home.secretsanta.repositories.UserRejectRepository;
 import home.secretsanta.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -24,6 +23,11 @@ public class UserService {
         this.userRecipientRepository = userRecipientRepository;
         this.userRejectRepository = userRejectRepository;
         this.userRepository = userRepository;
+    }
+
+
+    public User getUser(Integer userId) {
+        return userRepository.findById(userId).orElse(new User());
     }
 
     public List<User> getAllActiveUsers() {
@@ -106,5 +110,14 @@ public class UserService {
         if (numberOfChoices < 1)
             numberOfChoices = 1;
         return new Random().nextInt(numberOfChoices);
+    }
+
+    public void setActiveField(User user) {
+        Boolean isActive = user.getIsActive();
+        User responseUser = userRepository.findById(user.getUserId()).orElse(new User());
+        if (responseUser.getUserId() != null) {
+            responseUser.setIsActive(isActive);
+            userRepository.save(responseUser);
+        }
     }
 }

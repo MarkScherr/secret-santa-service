@@ -42,3 +42,10 @@ CREATE TABLE user_reject (
 	user_id INTEGER,
     reject_user_id INTEGER
 );
+
+CREATE TABLE message (
+	message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	sender_user_id INTEGER,
+    recipient_user_id INTEGER,
+    message MEDIUMTEXT
+);

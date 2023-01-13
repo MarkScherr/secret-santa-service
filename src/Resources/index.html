@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Secret Santa</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/inbox.css">
+		<link rel="stylesheet" href="css/home.css">
+		<link href="https://fonts.cdnfonts.com/css/snowinter" rel="stylesheet">
+		<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+		<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	</head>
+    <body>
+	<div id="navigation" style="display:none">
+		<nav class="navbar navbar-dark navbar-6 bg-success mb-4">
+			<a class="navbar-brand" href="#">Secret Santa</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15"
+					aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent15">
+				<ul class="navbar-nav mr-auto">
+					<li id="homeli" class="nav-item active">
+						<a class="nav-link" href="#" onClick=loadHome()>Home<span class="sr-only">(current)</span></a>
+					</li>
+					<li id="inboxli" class="nav-item">
+						<a class="nav-link" href="#" onClick=loadInbox()>inbox</a>
+					</li>
+					<li id="otherGiftersli" class="nav-item">
+						<a class="nav-link" href="#" onClick=loadOtherGifters()>Other Gifters</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<div id="mainSection" class="container">
+		<div class="row">
+			<div id="enterSiteDiv" class="col-md-12">
+				<div class="col-md-12">
+					<button id="loginButton" type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>LOGIN</button>
+					<button id="signUpButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>SIGN UP</button>
+				</div>
+			</div>
+			<div id="homeDiv" class="col-md-12"></div>
+			<div id="inboxDiv" class="col-md-12"></div>
+			<div id="otherGiftersDiv" class="col-md-12"></div>
+		</div>
+	</div>
+	</body>
+	<footer class="footer">
+		<div class="col-lg-12" id="footerLinks">
+			<br>
+			<a class="centered-a" href="https://www.linkedin.com/in/mark-scherr"><i class="fab fa-linkedin" style="font-size:56px"></i></a>
+			<a class="centered-a" href="https://github.com/MarkScherr"><i class="fab fa-github" style="font-size:56px"></i></a>
+		</div>
+	</footer>
+	<script src="js/index.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/inbox.js"></script>
+	<script src="js/home.js"></script>
+	<script src="js/otherGifters.js"></script>
+</html>

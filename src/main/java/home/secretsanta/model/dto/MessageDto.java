@@ -6,9 +6,11 @@ import lombok.NonNull;
 @Data
 public class MessageDto {
     @NonNull
-    private String userId;
+    private Integer userId;
+    private Integer recipientUserId;
     private String phoneNumber;
     @NonNull
     private String message;
+    private Integer originalMessageId;
 
 }
