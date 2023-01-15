@@ -5,20 +5,20 @@ function loginAction() {
     input.append(`
         <div class="input-group input-group-lg">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-lg">username</span>
+            <span class="input-group-text" id="inputGroup-sizing-lg">Username</span>
           </div>
           <input type="text" id="userNameInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
         </div>
         <div class="input-group input-group-lg">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-lg">password</span>
+            <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
           </div>
           <input type="text" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
         </div>
 
         <div class="col-md-12">
-            <button id="loginWithCredentialsButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>login</button>
-            <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>return</button>
+            <button id="loginWithCredentialsButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>LOGIN</button>
+            <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>RETURN</button>
         </div>
     `);
 }
@@ -32,7 +32,7 @@ function loginWithCredentialsAction() {
                                });
                                console.log(stringData);
      $.ajax({
-        url: 'http://localhost:8080/credential/verify',
+        url: BASE_URL + 'credential/verify',
         type: 'POST',
         data: stringData,
         crossDomain: true,
@@ -65,36 +65,36 @@ function signUpAction() {
     input.append(`
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">first name</span>
+        <span class="input-group-text" id="inputGroup-sizing-lg">First Name</span>
       </div>
       <input type="text" id="firstNameInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">last name</span>
+        <span class="input-group-text" id="inputGroup-sizing-lg">Last Name</span>
       </div>
       <input type="text" id="lastNameInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">phone #</span>
+        <span class="input-group-text" id="inputGroup-sizing-lg">Phone #</span>
       </div>
       <input id="phoneNumberInput" onkeydown="phoneNumberFormatter()" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">username</span>
+        <span class="input-group-text" id="inputGroup-sizing-lg">Username</span>
       </div>
       <input type="text" id="userNameInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-lg">password</span>
+        <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
       </div>
       <input type="text" id="passwordInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
-    <button id="registerButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>register</button>
-    <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>return</button>
+    <button id="registerButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>REGISTER</button>
+    <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>RETURN</button>
 
     `)
 }
@@ -122,7 +122,7 @@ function registerUser(user) {
                                });
                                console.log(stringData);
      $.ajax({
-        url: 'http://localhost:8080/credential/create',
+        url: BASE_URL + '/credential/create',
         type: 'POST',
         data: stringData,
         crossDomain: true,

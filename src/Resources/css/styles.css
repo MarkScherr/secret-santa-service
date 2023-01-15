@@ -29,9 +29,15 @@
 #navigation {
     background-color: #007502;
 }
+@font-face {
+    font-family: xmasFont;
+    src: url(stnicholas.ttf);
+}
 
 body {
-    font-family: 'Snowinter', sans-serif;
+    font-family: xmasFont;
+    #font-family: 'Snowinter', sans-serif;
+    background: #000000;
 }
 #enterSiteDiv {
     padding: 40px 20px;
@@ -66,7 +72,7 @@ body {
 }
 
 #footerLinks, .centered-a {
-    color: #000000;
+    color: #FFFFFF;
     margin: auto;
     width: 50%;
     padding: 10px;
@@ -83,7 +89,14 @@ body {
 .bg-success {
     background-color: #007502!important;
 }
-
+.btn-info {
+    background-color: #ffffff;
+    color: #007502;
+}
 button {
     margin-top:17px;
+}
+
+a {
+   word-break: break-word;
 }

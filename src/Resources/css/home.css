@@ -59,3 +59,8 @@ a:hover {
 
 }
 
+#wishListItemTextArea {
+    margin-top: 17px;
+    font-family: "Ebrima", Times, serif;
+    font-size: 24pt;
+}
