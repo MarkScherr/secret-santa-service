@@ -8,6 +8,7 @@ import home.secretsanta.repositories.UserRejectRepository;
 import home.secretsanta.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -44,6 +45,28 @@ public class UserService {
         return userRepository.findById(userReject.getRejectUserId()).orElse(new User());
     }
 
+    public List<UserReject> getRejectForUser(Integer userId) {
+        List<UserReject> result = new ArrayList<>();
+        List<UserReject> userRejects = userRejectRepository.findByUserId(userId);
+        if (userRejects != null) {
+            for (UserReject userReject: userRejects) {
+                User user = userRepository.getOne(userReject.getRejectUserId());
+                if (user.getIsActive()) {
+                    result.add(userReject);
+                }
+            }
+        }
+        return result;
+    }
+
+    public Boolean removeUserReject(Integer userId, Integer rejectUserId) {
+        UserReject userReject = new UserReject();
+        userReject.setUserId(userId);
+        userReject.setRejectUserId(rejectUserId);
+        userRejectRepository.delete(userReject);
+        return true;
+    }
+
     public List<UserRecipient> generateUserRecipientPairs() {
         List<UserRecipient> userRecipients = new ArrayList<>();
         List<User> activePresenters = getAllActiveUsers();
@@ -57,6 +80,11 @@ public class UserService {
             userRecipient.setRecipientUserId(recipientUserId);
             userRecipients.add(userRecipient);
             availableRecipients.remove(recipientUserIndex);
+        }
+        deleteUserRecipientPairs();
+
+        for (UserRecipient userRecipient : userRecipients) {
+            userRecipientRepository.save(userRecipient);
         }
         return userRecipients;
     }
@@ -106,10 +134,16 @@ public class UserService {
         }
         return userRejectMap;
     }
+
     private int getRandomNumber(int numberOfChoices) {
         if (numberOfChoices < 1)
             numberOfChoices = 1;
         return new Random().nextInt(numberOfChoices);
+    }
+
+    @Transactional
+    private void deleteUserRecipientPairs() {
+        userRecipientRepository.deleteAll();
     }
 
     public void setActiveField(User user) {
@@ -119,5 +153,10 @@ public class UserService {
             responseUser.setIsActive(isActive);
             userRepository.save(responseUser);
         }
+    }
+
+    public User getRecipientForUser(Integer userId) {
+        UserRecipient userRecipient = userRecipientRepository.findByUserId(userId);
+        return userRepository.findById(userRecipient.getRecipientUserId()).orElse(new User());
     }
 }

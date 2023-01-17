@@ -32,7 +32,7 @@ function loginWithCredentialsAction() {
                                });
                                console.log(stringData);
      $.ajax({
-        url: BASE_URL + 'credential/verify',
+        url: BASE_URL + '/credential/verify',
         type: 'POST',
         data: stringData,
         crossDomain: true,

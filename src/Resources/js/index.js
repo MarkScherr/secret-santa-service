@@ -1,5 +1,5 @@
 var CURRENT_USER_ID = -1;
-var BASE_URL = "http://localhost:8080/";
+var BASE_URL = "http://localhost:8080";
 var SELECTED_LIST_ITEM = [];
 
 function linkClick(id) {
@@ -39,7 +39,10 @@ function setListFunctionality(additionalAction) {
         var clickedDivId = $this.attr('id');
         if($this.hasClass('active')) {
             $this.removeClass('active');
-            const index = SELECTED_LIST_ITEM.indexOf(clickedDivId);
+            var index = SELECTED_LIST_ITEM.indexOf(clickedDivId);
+            if (index == -1) {
+                index = SELECTED_LIST_ITEM.indexOf(parseInt(clickedDivId));
+            }
             if (index > -1) {
               SELECTED_LIST_ITEM.splice(index, 1);
             }

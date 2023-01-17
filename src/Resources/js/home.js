@@ -1,5 +1,9 @@
 var IS_ACTIVE = false;
 var WISH_LIST_MAP = new Map();
+var RECIPIENT_WISH_LIST_DISPLAY = "";
+var CURRENT_RECIPIENT_USER_ID = -1;
+var CURRENT_REJECT_LIST = [];
+var CURRENT_OTHER_USER_ID_TO_NAME_MAP = new Map();
 
 function loadHome() {
     console.log("CURRENT_USER_ID: " + CURRENT_USER_ID + " jsFile: home");
@@ -15,11 +19,13 @@ function loadHome() {
 function clearLocalGlobalVariables() {
     WISH_LIST_MAP = new Map();
     SELECTED_LIST_ITEM = [];
+    CURRENT_REJECT_LIST = [];
+    CURRENT_OTHER_USER_ID_TO_NAME_MAP = new Map();
 }
 function addOptInToggle() {
     $.ajax({
         type: 'GET',
-        url: BASE_URL + '/users/' + CURRENT_USER_ID,
+        url: BASE_URL + '/user/' + CURRENT_USER_ID,
         success: function(result){
             var isActive = result.isActive;
             if (isActive == null) {
@@ -27,7 +33,9 @@ function addOptInToggle() {
             }
             IS_ACTIVE = isActive
             addOptInToggleToDiv();
-            myWishListItemButton() ;
+            addRejectGifteeButton();
+            addGiftee();
+            myWishListItemButton();
         },
         error: function() {
         }
@@ -70,7 +78,7 @@ function updateBackendActiveField() {
                                });
     console.log("sending reply message: " + stringData);
     $.ajax({
-        url: BASE_URL + '/users/active',
+        url: BASE_URL + '/user/active',
         type: 'PUT',
         data: stringData,
         headers: {
@@ -82,6 +90,188 @@ function updateBackendActiveField() {
     });
 }
 
+function addRejectGifteeButton() {
+    $("#homeDiv").append(`
+        <div class="col-md-12" id="rejectGifteeDiv">
+            <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>EXCLUDE GIFTER</button>
+            <div id="rejectListDiv"></div>
+        </div>
+    `);
+}
+
+function rejectGifteeAction() {
+    CURRENT_REJECT_LIST = [];
+    $.ajax({
+        type: 'GET',
+        url: BASE_URL + '/user/' + CURRENT_USER_ID + '/reject',
+        success: function(result){
+            $.each(result, function(index, type) {
+                CURRENT_REJECT_LIST.push(type.rejectUserId);
+                console.log(CURRENT_REJECT_LIST);
+            });
+            displayUsers();
+        },
+        error: function() {
+        }
+    });
+}
+
+function displayUsers() {
+    SELECTED_LIST_ITEM = [];
+    $.ajax({
+        type: 'GET',
+        url: BASE_URL + '/user/findAllActive',
+        success: function(result){
+            var inputTextHtml = '<div class="list-group">';
+            $.each(result, function(index, type) {
+                var userId = type.userId;
+                var name = type.firstName + type.lastName;
+                CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(userId, name);
+                if (CURRENT_REJECT_LIST.includes(type.userId)) {
+                    inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
+                        '" class="list-group-item list-group-item-action active"><h3>' + name + '</h3></a>';
+                    SELECTED_LIST_ITEM.push(userId);
+                } else {
+                    inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
+                        '" class="list-group-item list-group-item-action"><h3>' + name + '</h3></a>';
+                }
+            });
+            inputTextHtml += '</div>'
+            console.log(CURRENT_OTHER_USER_ID_TO_NAME_MAP);
+            $("#rejectListDiv").append(inputTextHtml);
+            setListFunctionality("updateActiveUser");
+            $('#rejectGifteeButton').text('CLOSE');
+            $('#rejectGifteeButton').attr("id","closeRejectGifteeButton");
+        },
+        error: function() {
+        }
+    });
+}
+
+function updateActiveUser() {
+console.log("updateActiveUser")
+    if (CURRENT_REJECT_LIST.length < SELECTED_LIST_ITEM.length) {
+console.log("updateActiveUsertrue")
+        for (var i = 0 ; i < SELECTED_LIST_ITEM.length ; i++) {
+            var selectedItemUserId = parseInt(SELECTED_LIST_ITEM[i]);
+            if (!CURRENT_REJECT_LIST.includes(selectedItemUserId)) {
+                linkUserToReject(selectedItemUserId);
+                CURRENT_REJECT_LIST.push(selectedItemUserId);
+            }
+        }
+    } else {
+console.log("updateActiveUserfalse")
+        for (var i = 0 ; i < CURRENT_REJECT_LIST.length ; i ++) {
+            var rejectToRemoveId = CURRENT_REJECT_LIST[i];
+            if (!SELECTED_LIST_ITEM.includes(rejectToRemoveId)) {
+                removeRejectIdFromUser(rejectToRemoveId);
+                CURRENT_REJECT_LIST.splice(CURRENT_REJECT_LIST.indexOf(rejectToRemoveId), 1);
+            }
+        }
+    }
+}
+
+function linkUserToReject(selectedItemUserId) {
+
+console.log("linkUserToReject")
+    var stringData = JSON.stringify({
+                                   userId: CURRENT_USER_ID,
+                                   rejectUserId: selectedItemUserId
+                               });
+    console.log("sending reply message: " + stringData);
+    $.ajax({
+        url: BASE_URL + '/user/reject',
+        type: 'POST',
+        data: stringData,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        success: function(data) {
+        },
+        error: function() {}
+    });
+}
+
+function removeRejectIdFromUser(rejectToRemoveId) {
+console.log("removeRejectIdFromUser")
+    $.ajax({
+        type: 'DELETE',
+        url: BASE_URL + '/user/' + CURRENT_USER_ID + '/reject/' + rejectToRemoveId,
+        success: function(result){
+        },
+        error: function() {
+        }
+    });
+}
+
+function closeRejectGifteeAction() {
+    $("#rejectListDiv").empty();
+    $('#closeRejectGifteeButton').text('EXCLUDE GIFTER');
+    $('#closeRejectGifteeButton').attr("id","rejectGifteeButton");
+
+}
+
+function addGiftee() {
+    $("#homeDiv").append(`
+        <div class="col-md-12" id="gifteeDiv">
+            <h3 id="giftee"></h3>
+        </div>
+    `);
+    populateGifteeBox();
+}
+
+function populateGifteeBox() {
+    $.ajax({
+        type: 'GET',
+        url: BASE_URL + '/user/' + CURRENT_USER_ID + '/recipient',
+        success: function(result){
+            CURRENT_RECIPIENT_USER_ID = parseInt(result.userId);
+            $('#giftee').text('Your Secret Santa Recipient is: ' + result.firstName + ' ' + result.lastName);
+            addButtonForRecipient();
+            console.log("RECIPIENT USER ID " + CURRENT_RECIPIENT_USER_ID);
+        },
+        error: function() {
+        }
+    });
+}
+
+function addButtonForRecipient() {
+    $("#gifteeDiv").append(`
+        <div class="col-md-12">
+            <button id="recipientWishListButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>Their WishList</button>
+        </div>
+    `);
+}
+
+function recipientWishListAction() {
+    $.ajax({
+        type: 'GET',
+        url: BASE_URL + '/user/' + CURRENT_RECIPIENT_USER_ID + '/wishlist',
+        success: function(result){
+            var inputText = '<div id="recipientWishListInnerDiv">'
+            $.each(result, function(index, type) {
+                var wishListItem = type.wishListItem;
+                wishListItem = linkify(wishListItem);
+                if (!wishListItem.includes("<a")) {
+                    wishListItem += '<a href="#" class="list-group-item list-group-item-action">' + wishListItem + '</a>';
+                }
+                inputText += wishListItem;
+            });
+            $('#gifteeDiv').append(inputText + '</div>');
+            $('#recipientWishListButton').text('CLOSE');
+            $('#recipientWishListButton').attr("id","closeRecipientWishListItemButton");
+        },
+        error: function() {
+        }
+    });
+}
+
+function closeRecipientWishListItemAction() {
+    $('#gifteeDiv').empty();
+    $("#gifteeDiv").append('<h3 id="giftee"></h3>')
+    populateGifteeBox();
+}
 
 function myWishListItemButton() {
     $("#homeDiv").append(`
@@ -170,7 +360,7 @@ function createUpdateWishListDiv() {
     <div id="wishListDiv">
         <div id="replyBox" class="form-group">
             <div class="col-md-12">
-                <textarea class="form-control" id="updateWishListItemTextArea" rows="6">` +WISH_LIST_MAP.get(parseInt(SELECTED_LIST_ITEM[0])) + `</textarea>
+                <textarea class="form-control" id="updateWishListItemTextArea" rows="6">` + WISH_LIST_MAP.get(parseInt(SELECTED_LIST_ITEM[0])) + `</textarea>
             </div>
             <div class="col-md-12">
                 <button id="updateWishListItemButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>UPDATE</button>

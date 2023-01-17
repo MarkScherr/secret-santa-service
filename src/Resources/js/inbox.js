@@ -132,7 +132,7 @@ function replyAction() {
 function getUserPhoneNumber() {
     $.ajax({
         type: 'GET',
-        url: BASE_URL + '/users/' + REPLY_MESSAGE_SENDER_ID,
+        url: BASE_URL + '/user/' + REPLY_MESSAGE_SENDER_ID,
         success: function(result){
             var phoneNumber = result.phoneNumber;
             console.log(phoneNumber);
