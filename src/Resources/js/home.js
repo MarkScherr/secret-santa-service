@@ -93,7 +93,9 @@ function updateBackendActiveField() {
 function addRejectGifteeButton() {
     $("#homeDiv").append(`
         <div class="col-md-12" id="rejectGifteeDiv">
-            <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>EXCLUDE GIFTER</button>
+            <div class="col-md-12">
+                <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>EXCLUDE GIFTER</button>
+            </div>
             <div id="rejectListDiv"></div>
         </div>
     `);
@@ -122,10 +124,11 @@ function displayUsers() {
         type: 'GET',
         url: BASE_URL + '/user/findAllActive',
         success: function(result){
-            var inputTextHtml = '<div class="list-group">';
+            var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:7px;">Select Gifter(s) whom you wish to not include in Secret Santa:</h2>';
             $.each(result, function(index, type) {
                 var userId = type.userId;
-                var name = type.firstName + type.lastName;
+                var name = type.firstName.charAt(0).toUpperCase() + type.firstName.slice(1).toLowerCase() + ' ' +
+                                           type.lastName.charAt(0).toUpperCase() + type.lastName.slice(1).toLowerCase();
                 CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(userId, name);
                 if (CURRENT_REJECT_LIST.includes(type.userId)) {
                     inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
@@ -136,12 +139,13 @@ function displayUsers() {
                         '" class="list-group-item list-group-item-action"><h3>' + name + '</h3></a>';
                 }
             });
-            inputTextHtml += '</div>'
+            inputTextHtml += '</div>';
             console.log(CURRENT_OTHER_USER_ID_TO_NAME_MAP);
             $("#rejectListDiv").append(inputTextHtml);
             setListFunctionality("updateActiveUser");
             $('#rejectGifteeButton').text('CLOSE');
             $('#rejectGifteeButton').attr("id","closeRejectGifteeButton");
+            $('#closeRejectGifteeButton').attr("style", "background-color:#C54245;");
         },
         error: function() {
         }
@@ -149,9 +153,7 @@ function displayUsers() {
 }
 
 function updateActiveUser() {
-console.log("updateActiveUser")
     if (CURRENT_REJECT_LIST.length < SELECTED_LIST_ITEM.length) {
-console.log("updateActiveUsertrue")
         for (var i = 0 ; i < SELECTED_LIST_ITEM.length ; i++) {
             var selectedItemUserId = parseInt(SELECTED_LIST_ITEM[i]);
             if (!CURRENT_REJECT_LIST.includes(selectedItemUserId)) {
@@ -160,7 +162,6 @@ console.log("updateActiveUsertrue")
             }
         }
     } else {
-console.log("updateActiveUserfalse")
         for (var i = 0 ; i < CURRENT_REJECT_LIST.length ; i ++) {
             var rejectToRemoveId = CURRENT_REJECT_LIST[i];
             if (!SELECTED_LIST_ITEM.includes(rejectToRemoveId)) {
@@ -172,8 +173,6 @@ console.log("updateActiveUserfalse")
 }
 
 function linkUserToReject(selectedItemUserId) {
-
-console.log("linkUserToReject")
     var stringData = JSON.stringify({
                                    userId: CURRENT_USER_ID,
                                    rejectUserId: selectedItemUserId
@@ -194,7 +193,6 @@ console.log("linkUserToReject")
 }
 
 function removeRejectIdFromUser(rejectToRemoveId) {
-console.log("removeRejectIdFromUser")
     $.ajax({
         type: 'DELETE',
         url: BASE_URL + '/user/' + CURRENT_USER_ID + '/reject/' + rejectToRemoveId,
@@ -209,13 +207,16 @@ function closeRejectGifteeAction() {
     $("#rejectListDiv").empty();
     $('#closeRejectGifteeButton').text('EXCLUDE GIFTER');
     $('#closeRejectGifteeButton').attr("id","rejectGifteeButton");
+    $('#rejectGifteeButton').attr("style", "background-color:#007502;");
 
 }
 
 function addGiftee() {
     $("#homeDiv").append(`
         <div class="col-md-12" id="gifteeDiv">
-            <h3 id="giftee"></h3>
+            <div class="col-md-12" id="recipientDiv">
+                <h3 id="giftee"></h3>
+            </div>
         </div>
     `);
     populateGifteeBox();
@@ -227,9 +228,11 @@ function populateGifteeBox() {
         url: BASE_URL + '/user/' + CURRENT_USER_ID + '/recipient',
         success: function(result){
             CURRENT_RECIPIENT_USER_ID = parseInt(result.userId);
-            $('#giftee').text('Your Secret Santa Recipient is: ' + result.firstName + ' ' + result.lastName);
+            var name = result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1).toLowerCase() + ' ' +
+                  result.lastName.charAt(0).toUpperCase() + result.lastName.slice(1).toLowerCase();
+            CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(CURRENT_RECIPIENT_USER_ID, name);
+            $('#giftee').text('Your Secret Santa Recipient is: ' + name);
             addButtonForRecipient();
-            console.log("RECIPIENT USER ID " + CURRENT_RECIPIENT_USER_ID);
         },
         error: function() {
         }
@@ -249,7 +252,10 @@ function recipientWishListAction() {
         type: 'GET',
         url: BASE_URL + '/user/' + CURRENT_RECIPIENT_USER_ID + '/wishlist',
         success: function(result){
-            var inputText = '<div id="recipientWishListInnerDiv">'
+            var inputText = `
+                <div id="recipientWishListInnerDiv">
+                <h2 style="color:#ffffff;margin-top:30px;">` + CURRENT_OTHER_USER_ID_TO_NAME_MAP.get(CURRENT_RECIPIENT_USER_ID) + `'s WishList</h2>
+            `;
             $.each(result, function(index, type) {
                 var wishListItem = type.wishListItem;
                 wishListItem = linkify(wishListItem);
@@ -261,6 +267,7 @@ function recipientWishListAction() {
             $('#gifteeDiv').append(inputText + '</div>');
             $('#recipientWishListButton').text('CLOSE');
             $('#recipientWishListButton').attr("id","closeRecipientWishListItemButton");
+            $('#closeRecipientWishListItemButton').attr("style", "background-color:#C54245;");
         },
         error: function() {
         }
@@ -269,14 +276,16 @@ function recipientWishListAction() {
 
 function closeRecipientWishListItemAction() {
     $('#gifteeDiv').empty();
-    $("#gifteeDiv").append('<h3 id="giftee"></h3>')
+    $("#gifteeDiv").append('<div class="col-md-12" id="recipientDiv"><h3 id="giftee"></h3></div>')
     populateGifteeBox();
 }
 
 function myWishListItemButton() {
     $("#homeDiv").append(`
         <div class="col-md-12">
-            <button id="myWishListButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>My WishList</button>
+            <div class="col-md-12">
+                <button id="myWishListButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>My WishList</button>
+            </div>
         </div>
     `);
 }
@@ -308,7 +317,8 @@ function displayWishListItems(isAddOpen) {
     var input = $("#homeDiv");
     input.empty();
     SELECTED_MESSAGE_LIST = 0;
-    var inputTextHtml = '<div class="list-group">';
+    var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:5px;">My Wishlist:</h2>';
+    var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:5px;">My Wishlist:</h2>';
     if (WISH_LIST_MAP.size > 0) {
         for (let [key, value] of WISH_LIST_MAP) {
             inputTextHtml = inputTextHtml + '<a href="#" id="' + key +
@@ -334,7 +344,9 @@ function addWishListItemButtons(isAddOpen) {
     if (!isAddOpen) {
         inputText += `
             <button id="createWishListItemButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>ADD ITEM</button>
-            <button id="cancelWishListItemButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>RETURN</button>
+            <button id="cancelWishListItemButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>
+            <div class="col-md-12"><img src="img/home.jpg"></div>
+            </button>
         `}
     inputText += '</div>';
     $("#homeDiv").append(inputText);

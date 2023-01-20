@@ -25,10 +25,10 @@ function loginAction() {
 
 function loginWithCredentialsAction() {
     var stringData = JSON.stringify({
-//                                   userName: $("#userNameInput").val(),
-//                                   password:  $("#passwordInput").val()
-                                   userName: "mrscherr",
-                                   password:  "rrugby"
+                                   userName: $("#userNameInput").val(),
+                                   password:  $("#passwordInput").val()
+//                                   userName: "mrscherr",
+//                                   password:  "rrugby"
                                });
                                console.log(stringData);
      $.ajax({
@@ -47,6 +47,7 @@ function loginWithCredentialsAction() {
         success: function(data, status) {
             console.log(data);
             if (data == -1) {
+                alert("incorrect credentials please try again");
                 loginAction();
             } else {
                 CURRENT_USER_ID = parseInt(data);

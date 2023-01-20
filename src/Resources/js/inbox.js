@@ -136,7 +136,7 @@ function getUserPhoneNumber() {
         success: function(result){
             var phoneNumber = result.phoneNumber;
             console.log(phoneNumber);
-            sendReplySMSMessage(phoneNumber, 0);
+//            sendReplySMSMessage(phoneNumber, 0);
         },
         error: function() {
         }
@@ -162,36 +162,37 @@ function sendReplyMessage() {
         success: function(data) {},
         error: function() {}
     });
+    loadInbox();
 }
 
-function sendReplySMSMessage(phoneNumberFromMessage, currentAttempt) {
-    var outgoingMessage = $("#replyTextArea").val();
-    var stringData = JSON.stringify({
-                                   userId: CURRENT_USER_ID,
-                                   phoneNumber:  phoneNumberFromMessage,
-                                   message: outgoingMessage
-                               });
-    console.log("sending sms message: " + stringData);
-    $.ajax({
-        url: BASE_URL + '/sms/message',
-        type: 'POST',
-        data: stringData,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        success: function(data) {
-            alert("Message Sent Anonymously");
-            loadInbox();
-        },
-        error: function() {
-            if(currentAttempt < 5) {
-                sendReplySMSMessage(phoneNumberFromMessage, currentAttempt++);
-            }
-            loadInbox();
-        }
-    });
-}
+//function sendReplySMSMessage(phoneNumberFromMessage, currentAttempt) {
+//    var outgoingMessage = $("#replyTextArea").val();
+//    var stringData = JSON.stringify({
+//                                   userId: CURRENT_USER_ID,
+//                                   phoneNumber:  phoneNumberFromMessage,
+//                                   message: outgoingMessage
+//                               });
+//    console.log("sending sms message: " + stringData);
+//    $.ajax({
+//        url: BASE_URL + '/sms/message',
+//        type: 'POST',
+//        data: stringData,
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        success: function(data) {
+//            alert("Message Sent Anonymously");
+//            loadInbox();
+//        },
+//        error: function() {
+//            if(currentAttempt < 5) {
+//                sendReplySMSMessage(phoneNumberFromMessage, currentAttempt++);
+//            }
+//            loadInbox();
+//        }
+//    });
+//}
 
 function cancelReplyAction() {
     loadInbox();

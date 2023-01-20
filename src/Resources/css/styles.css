@@ -14,8 +14,10 @@
   background-image: url('https://mdbootstrap.com/img/svg/hamburger5.svg?color=f3e5f5');
 }
 .navbar.navbar-6 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger8.svg?color=E3005C');
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger2.svg?color=C54245');
+  padding: 30px 40px;
 }
+
 .navbar.navbar-7 .navbar-toggler-icon {
   background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00');
 }
@@ -52,6 +54,7 @@ body {
 
 .navbar-nav .nav-link {
     font-size: 24pt;
+    text-align: center;
 }
 
 .navbar-link {
@@ -99,4 +102,12 @@ button {
 
 a {
    word-break: break-word;
+}
+
+h2 {
+    margin-top:5px;
+}
+
+textarea {
+    margin-top:5px;
 }
