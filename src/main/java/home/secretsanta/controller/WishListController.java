@@ -25,6 +25,7 @@ public class WishListController {
     public List<WishList> getWishListItems(@PathVariable Integer userId) {
         return service.getWishListItems(userId);
     }
+
     @PostMapping(CREATE_WISHLIST_ITEM)
     public WishList createWishlistItem(@RequestBody WishListDto wishListDto, @PathVariable Integer userId) {
         return service.createWishListItem(wishListDto.getWishListItem(), userId);

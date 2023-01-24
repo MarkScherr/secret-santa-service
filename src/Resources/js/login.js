@@ -51,13 +51,26 @@ function loginWithCredentialsAction() {
                 loginAction();
             } else {
                 CURRENT_USER_ID = parseInt(data);
-                startApplication();
+                if (CURRENT_USER_ID == ADMIN_USER_ID) {
+                    addAdminToNavigationBar();
+                    loadAdmin();
+                } else {
+                    startApplication();
+                }
             }
         },
         error: function() {
              loginAction();
         }
     });
+}
+
+function addAdminToNavigationBar() {
+    $('#mainNavigation').append(`
+        <li id="adminli" class="nav-item">
+            <a class="nav-link" href="#" onClick=loadOtherGifters()>Admin</a>
+        </li>
+    `)
 }
 
 function signUpAction() {

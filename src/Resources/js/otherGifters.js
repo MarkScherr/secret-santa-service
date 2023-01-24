@@ -6,7 +6,7 @@ function loadOtherGifters() {
     console.log("CURRENT_USER_ID: " + CURRENT_USER_ID + " jsFile: OG");
     collapseNavbar();
     $('html, body').animate({scrollTop: '0px'}, 300);
-    setNavigationActive("otherGifters", "inbox", "home");
+    setNavigationActive("otherGifters", "inbox", "home", "admin");
     clearAllDivs();
     populateMapsOfGiftees();
 }

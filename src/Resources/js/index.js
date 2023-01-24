@@ -1,4 +1,5 @@
 var CURRENT_USER_ID = -1;
+var ADMIN_USER_ID = 13;
 var BASE_URL = "http://localhost:8080";
 var SELECTED_LIST_ITEM = [];
 
@@ -15,17 +16,23 @@ function clearAllDivs() {
     $("#homeDiv").empty();
     $("#otherGiftersDiv").empty();
 }
+//
+//function setNavigationActive(currentTab, otherTab1, otherTab2, otherTab3) {
+//    if($("#" + otherTab1 + "li").hasClass('active')) {
+//        $("#" + otherTab1 + "li").removeClass('active');
+//    }
+//    if($("#" + otherTab2 + "li").hasClass('active')) {
+//        $("#" + otherTab2 + "li").removeClass('active');
+//    }
+//    $("#" + currentTab + "li").addClass('active');
+//}
 
-function setNavigationActive(currentTab, otherTab1, otherTab2) {
-    if($("#" + otherTab1 + "li").hasClass('active')) {
-        $("#" + otherTab1 + "li").removeClass('active');
-    }
-    if($("#" + otherTab2 + "li").hasClass('active')) {
-        $("#" + otherTab2 + "li").removeClass('active');
-    }
+function setNavigationActive(currentTab, otherTabs) {
+//    otherTabs.forEach(otherTab =>
+//        $('#' + otherTab + 'li').removeClass('active');
+//    );
     $("#" + currentTab + "li").addClass('active');
 }
-
 function collapseNavbar() {
     $(".navbar-toggler").addClass('collapsed');
     $("#navbarSupportedContent15").removeClass('show');

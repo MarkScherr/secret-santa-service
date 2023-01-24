@@ -10,7 +10,7 @@ function loadHome() {
     collapseNavbar();
     $('html, body').animate({scrollTop: '0px'}, 300);
     clearLocalGlobalVariables();
-    setNavigationActive("home", "inbox", "otherGifters");
+    setNavigationActive("home", "inbox", "otherGifters", "admin");
     $("#navigation").show();
     clearAllDivs();
     addOptInToggle();

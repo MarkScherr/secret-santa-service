@@ -7,7 +7,7 @@ var REPLY_MESSAGE_SENDER_ID = -1;
 
 function loadInbox() {
     collapseNavbar();
-    setNavigationActive("inbox", "home", "otherGifters");
+    setNavigationActive("inbox", "home", "otherGifters", "admin");
     clearAllDivs();
     clearAllVariables();
     getMessagesFromServer();
