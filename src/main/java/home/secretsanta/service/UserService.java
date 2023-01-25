@@ -157,6 +157,8 @@ public class UserService {
 
     public User getRecipientForUser(Integer userId) {
         UserRecipient userRecipient = userRecipientRepository.findByUserId(userId);
-        return userRepository.findById(userRecipient.getRecipientUserId()).orElse(new User());
+        return userRecipient != null ?
+                userRepository.findById(userRecipient.getRecipientUserId()).orElse(new User()) :
+                new User();
     }
 }

@@ -20,6 +20,9 @@ public class CredentialService {
     }
 
     public Integer createCredentials(CredentialDto credentialDto) {
+        if (verifyCredentials(credentialDto) != -1) {
+            return -1;
+        }
         Credential credential = createCredentialFromDto(credentialDto);
         credential = credentialRepository.save(credential);
         User user = createUserFromDto(credentialDto, credential.getCredentialId());
