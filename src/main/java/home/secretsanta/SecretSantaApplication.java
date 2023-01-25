@@ -24,7 +24,8 @@ public class SecretSantaApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://markthegreat-secret-santa.42web.io");
+				registry.addMapping("/**")
+						.allowedMethods("GET", "POST", "DELETE", "PUT");
 			}
 		};
 	}

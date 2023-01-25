@@ -1,6 +1,6 @@
 var CURRENT_USER_ID = -1;
 var ADMIN_USER_ID = 13;
-var BASE_URL = "http://localhost:8080";
+var BASE_URL = "https://18.223.134.102:9090";
 var SELECTED_LIST_ITEM = [];
 
 function linkClick(id) {
