@@ -15,4 +15,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
+    - appspec.yml
     - target/secretsanta-0.0.1-SNAPSHOT.war
