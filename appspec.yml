@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ec2-user/secretsanta/apache-tomcat-9.0.71
+    destination: /home/ec2-user/secretsanta
 
 permissions:
   - object: /
@@ -13,10 +13,10 @@ permissions:
 
 hooks:
   ApplicationStop:
-    - location: bin/shutdown.sh
+    - location: scripts/shutdown.sh
       timeout: 20
       runas: ec2-user
   ApplicationStart:
-    - location: bin/startup.sh
+    - location: scripts/startup.sh
       timeout: 20
       runas: ec2-user
