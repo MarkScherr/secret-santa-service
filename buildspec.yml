@@ -8,7 +8,7 @@ phases:
       - echo In the pre_build phase...
   build:
     commands:
-      - mvn clean install
+      - echo Build started on `date`
   post_build:
     commands:
       - echo Build completed on `date`
