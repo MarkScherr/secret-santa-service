@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ec2-user/secretsanta/apache-tomcat-9.0.71
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
+hooks:
+  ApplicationStop:
+    - location: bin/shutdown.sh
+      timeout: 20
+      runas: ec2-user
+  ApplicationStart:
+    - location: bin/startup.sh
+      timeout: 20
+      runas: ec2-user
