@@ -9,12 +9,10 @@ phases:
   build:
     commands:
       - echo Build started on `date`
+      - mvn install
   post_build:
     commands:
       - echo Build completed on `date`
-      - mvn package
-      - mv target/secret-santa-service-0.0.1-SNAPSHOT.war secret-santa-service-0.0.1-SNAPSHOT.war
 artifacts:
   files:
-    - secret-santa-service-0.0.1-SNAPSHOT.war
-    - .ebextensions/**/*
+    - target/secret-santa-service-0.0.1-SNAPSHOT.war
