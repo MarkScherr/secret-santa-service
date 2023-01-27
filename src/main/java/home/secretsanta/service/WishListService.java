@@ -2,10 +2,8 @@ package home.secretsanta.service;
 
 import home.secretsanta.model.WishList;
 import home.secretsanta.repositories.WishListRepository;
-import lombok.var;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
