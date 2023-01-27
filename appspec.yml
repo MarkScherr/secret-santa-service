@@ -2,21 +2,23 @@ version: 0.0
 os: linux
 
 files:
-  - source: /
-    destination: /home/ec2-user/secretsanta
+  - source: /target/secretsanta-0.0.1-SNAPSHOT.war
+    destination: /home/ec2-user/secretsanta/apache-tomcat-9.0.71/webapps
+    overwrite: true
 
 permissions:
   - object: /
     pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+    mode: 755
+    owner: tomcat
+    group: tomcat
 
 hooks:
   ApplicationStop:
-    - location: scripts/shutdown.sh
-      timeout: 20
-      runas: ec2-user
+    - location: /home/ec2-user/secretsanta/apache-tomcat-9.0.71/bin/shutdown.sh
+      timeout: 60
+      runas: root
   ApplicationStart:
-    - location: scripts/startup.sh
-      timeout: 20
-      runas: ec2-user
+    - location: /home/ec2-user/secretsanta/apache-tomcat-9.0.71/bin/startup.sh
+      timeout: 60
+      runas: root
