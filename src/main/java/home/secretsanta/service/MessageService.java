@@ -23,29 +23,10 @@ public class MessageService {
 
     public void addMessage(MessageDto messageDto) {
         if (messageDto.getOriginalMessageId() != null) {
-            Message originalMessage =
-                    messageRepository.findById(messageDto.getOriginalMessageId()).orElse(new Message());
-            if (!originalMessage.getMessage().contains("Original Message: ")) {
-                addOriginalMessageToBeginningOfMessage(messageDto);
-            } else {
-                messageDto.setMessage("RE: " + messageDto.getMessage());
-            }
+            messageDto.setMessage("RE: " + messageDto.getMessage());
         }
         messageRepository.save(getMessageFromMessageDto(messageDto));
     }
-
-    private void addOriginalMessageToBeginningOfMessage(MessageDto messageDto) {
-        messageDto.setMessage("Original Message: " +
-                messageRepository
-                .findById(messageDto
-                .getOriginalMessageId())
-                .orElse(new Message()).getMessage() +
-                "\nReply From " +
-                userRepository.findById(messageDto.getRecipientUserId()).orElse(new User()).getFirstName() +
-                ": " +
-                messageDto.getMessage());
-    }
-
 
     private Message getMessageFromMessageDto(MessageDto messageDto) {
         Message message = new Message();

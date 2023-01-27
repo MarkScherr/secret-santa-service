@@ -16,7 +16,7 @@ function loginAction() {
           <input type="password" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12" id="loginButtonDiv">
             <button id="loginWithCredentialsButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>LOGIN</button>
             <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>RETURN</button>
         </div>

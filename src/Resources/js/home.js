@@ -33,8 +33,10 @@ function addOptInToggle() {
             }
             IS_ACTIVE = isActive
             addOptInToggleToDiv();
-            addRejectGifteeButton();
-            addGiftee();
+            if(IS_ACTIVE) {
+                addRejectGifteeButton();
+                addGiftee();
+            }
             myWishListItemButton();
         },
         error: function() {
@@ -44,17 +46,18 @@ function addOptInToggle() {
 
 function addOptInToggleToDiv() {
     $("#homeDiv").append(`
-    <div class="col-md-12">
+    <div class="col-md-12" id="optingDiv">
         <div id="snowButton" class="bg" onClick=linkClick(this.id)>
             <div class="centerer">
-                <a href="#" id="participationButton" class="button">PARTICIPATING</a>
+                <a href="#" id="participationButton" class="button">I AM IN!</a>
             </div>
         </div>
 	</div>
     `);
     if (IS_ACTIVE == false) {
         $(".button").css("background", "#C54245");
-        $("#participationButton").text("Not Participating");
+        $("#participationButton").text("I AM OUT!");
+        $("#rejectGifteeButton").hide();
     }
 }
 
@@ -62,11 +65,16 @@ function snowAction() {
     if (IS_ACTIVE == false) {
         IS_ACTIVE = true;
         $(".button").css("background", "#007502");
-        $("#participationButton").text("Participating");
+        $("#participationButton").text("I AM IN!");
+        if ($("#rejectGifteeButton").length === 0) {
+            addRejectGifteeButton();
+        }
+        $("#rejectGifteeButton").show();
     } else {
         IS_ACTIVE = false;
         $(".button").css("background", "#C54245");
-        $("#participationButton").text("Not Participating");
+        $("#participationButton").text("I AM OUT!");
+        $("#rejectGifteeButton").hide();
     }
     updateBackendActiveField();
 }
@@ -91,7 +99,7 @@ function updateBackendActiveField() {
 }
 
 function addRejectGifteeButton() {
-    $("#homeDiv").append(`
+    $("#optingDiv").append(`
         <div class="col-md-12" id="rejectGifteeDiv">
             <div class="col-md-12">
                 <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>Avoid Giftee</button>
@@ -207,7 +215,7 @@ function removeRejectIdFromUser(rejectToRemoveId) {
 
 function closeRejectGifteeAction() {
     $("#rejectListDiv").empty();
-    $('#closeRejectGifteeButton').text('EXCLUDE GIFTER');
+    $('#closeRejectGifteeButton').text('Avoid Giftee');
     $('#closeRejectGifteeButton').attr("id","rejectGifteeButton");
     $('#rejectGifteeButton').attr("style", "background-color:#007502;");
 
@@ -286,10 +294,9 @@ function closeRecipientWishListItemAction() {
 
 function myWishListItemButton() {
     $("#homeDiv").append(`
-        <div class="col-md-12">
-            <div class="col-md-12">
+        <div class="col-md-12" id="myWishListButtonDiv">
                 <button id="myWishListButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>My WishList</button>
-            </div>
+
         </div>
     `);
 }
@@ -320,9 +327,11 @@ function getWishListItemsFromServer(isAddOpen) {
 function displayWishListItems(isAddOpen) {
     var input = $("#homeDiv");
     input.empty();
+    if ($("#homeButton").length === 0) {
+        addHomeButton("homeDiv");
+    }
     SELECTED_MESSAGE_LIST = 0;
-    var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:5px;">My Wishlist:</h2>';
-    var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:5px;">My Wishlist:</h2>';
+    var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;">My Wishlist:</h2>';
     if (WISH_LIST_MAP.size > 0) {
         for (let [key, value] of WISH_LIST_MAP) {
             inputTextHtml = inputTextHtml + '<a href="#" id="' + key +
@@ -351,7 +360,6 @@ function addWishListItemButtons(isAddOpen) {
         `}
     inputText += '</div>';
     $("#homeDiv").append(inputText);
-    addHomeButton("wishListItemButtonDiv");
 }
 
 function createWishListItemAction() {
@@ -420,6 +428,9 @@ function updateWishListBackend() {
 }
 
 function addWishListItemToDiv() {
+    if ($("#homeButton").length === 0) {
+        addHomeButton("homeDiv");
+    }
     $("#homeDiv").append(`
     <div id="wishListDiv">
         <div id="replyBox" class="form-group">
@@ -467,7 +478,7 @@ function removeWishListItemAction() {
                 type: 'DELETE',
                 url: BASE_URL + '/user/' + CURRENT_USER_ID + '/wishlist/delete/' + SELECTED_LIST_ITEM[i],
                 success: function(resultList){
-                    $("#homeDiv").empty();
+                    $("#wishListDiv").empty();
                     getWishListItemsFromServer(false);
                 },
                 error: function() {
@@ -498,7 +509,7 @@ function addItemOrEditItem() {
     }
 }
 
-function cancelWishListItemAction() {
+function homeAction() {
     loadHome();
 }
 function cancelWishListAddItemTextAction() {

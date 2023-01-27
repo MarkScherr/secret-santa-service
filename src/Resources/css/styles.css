@@ -1,31 +1,6 @@
-.navbar.navbar-1 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger25.svg?color=C54245');
-}
-.navbar.navbar-2 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger2.svg?color=fff');
-}
-.navbar.navbar-3 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger1.svg?color=6a1b9a');
-}
-.navbar.navbar-4 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger7.svg?color=BFE100');
-}
-.navbar.navbar-5 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger5.svg?color=f3e5f5');
-}
 .navbar.navbar-6 .navbar-toggler-icon {
   background-image: url('https://mdbootstrap.com/img/svg/hamburger2.svg?color=C54245');
   padding: 30px 40px;
-}
-
-.navbar.navbar-7 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger9.svg?color=FF2C00');
-}
-.navbar.navbar-8 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger4.svg?color=1729B0');
-}
-.navbar.navbar-9 .navbar-toggler-icon {
-  background-image: url('https://mdbootstrap.com/img/svg/hamburger3.svg?color=00FBD8');
 }
 
 #navigation {
@@ -72,6 +47,8 @@ body {
 
 .input-group-text {
     border: 0px;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 #footerLinks, .centered-a {
@@ -105,9 +82,23 @@ a {
 }
 
 h2 {
+    margin-top:15px;
+    font-weight: bold;
+}
+
+h3 {
     margin-top:5px;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 textarea {
     margin-top:5px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+input {
+    font-size: 32px;
+    font-weight: bold;
 }

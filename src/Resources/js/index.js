@@ -1,6 +1,7 @@
 var CURRENT_USER_ID = -1;
 var ADMIN_USER_ID  = -1;
-var BASE_URL = "https://rpi.markscherr.link:443";
+var BASE_URL = "https://rpi.markscherr.link:8443";
+//var BASE_URL = "http://localhost:9090";
 var SELECTED_LIST_ITEM = [];
 
 function linkClick(id) {
@@ -19,7 +20,7 @@ function clearAllDivs() {
 
 function addHomeButton(divId) {
     $("#" + divId).append(`
-        <button id="cancelWishListItemButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>
+        <button id="homeButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>
         <div class="col-md-12"><img src="img/home.jpg"></div>
         </button>
     `);

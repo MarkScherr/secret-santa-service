@@ -10,31 +10,36 @@
 .btn-link:hover {
 	color: #ffffff;
 }
+
 .centered {
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .panel-heading {
     backGround-color: #007502;
     color: #ffffff;
     text-align: center;
 }
+
 .panel-heading {
-backGround-color: #000000;
-color: #ffffff;
-text-align: center;
+    backGround-color: #000000;
+    color: #ffffff;
+    text-align: center;
 }
 
 .panel-collapse a {
-text-align: center;
-color: #000000;
+    text-align: center;
+    color: #000000;
 }
+
 .panel-collapse a {
     text-align: center;
     color: #ffffff;
 }
+
 .btn .btn-link .btn-block {
     text-align: center;
 }
