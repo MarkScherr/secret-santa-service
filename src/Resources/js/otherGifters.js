@@ -8,6 +8,7 @@ function loadOtherGifters() {
     $('html, body').animate({scrollTop: '0px'}, 300);
     setNavigationActive("otherGifters", "inbox", "home", "admin");
     clearAllDivs();
+    addHomeButton("otherGiftersDiv");
     populateMapsOfGiftees();
 }
 

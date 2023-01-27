@@ -1,6 +1,6 @@
 var CURRENT_USER_ID = -1;
-var ADMIN_USER_ID = 13;
-var BASE_URL = "https://18.223.134.102:9090";
+var ADMIN_USER_ID  = -1;
+var BASE_URL = "https://rpi.markscherr.link:443";
 var SELECTED_LIST_ITEM = [];
 
 function linkClick(id) {
@@ -15,6 +15,14 @@ function clearAllDivs() {
     $("#inboxDiv").empty();
     $("#homeDiv").empty();
     $("#otherGiftersDiv").empty();
+}
+
+function addHomeButton(divId) {
+    $("#" + divId).append(`
+        <button id="cancelWishListItemButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>
+        <div class="col-md-12"><img src="img/home.jpg"></div>
+        </button>
+    `);
 }
 //
 //function setNavigationActive(currentTab, otherTab1, otherTab2, otherTab3) {

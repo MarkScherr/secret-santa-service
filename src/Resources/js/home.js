@@ -94,7 +94,7 @@ function addRejectGifteeButton() {
     $("#homeDiv").append(`
         <div class="col-md-12" id="rejectGifteeDiv">
             <div class="col-md-12">
-                <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>EXCLUDE GIFTER</button>
+                <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>Avoid Giftee</button>
             </div>
             <div id="rejectListDiv"></div>
         </div>
@@ -124,19 +124,21 @@ function displayUsers() {
         type: 'GET',
         url: BASE_URL + '/user/findAllActive',
         success: function(result){
-            var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:7px;">Select Gifter(s) whom you wish to not include in Secret Santa:</h2>';
+            var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:7px;">Select Giftee(s) whom you wish to not include in Secret Santa:</h2>';
             $.each(result, function(index, type) {
                 var userId = type.userId;
-                var name = type.firstName.charAt(0).toUpperCase() + type.firstName.slice(1).toLowerCase() + ' ' +
-                                           type.lastName.charAt(0).toUpperCase() + type.lastName.slice(1).toLowerCase();
-                CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(userId, name);
-                if (CURRENT_REJECT_LIST.includes(type.userId)) {
-                    inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
-                        '" class="list-group-item list-group-item-action active"><h3>' + name + '</h3></a>';
-                    SELECTED_LIST_ITEM.push(userId);
-                } else {
-                    inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
-                        '" class="list-group-item list-group-item-action"><h3>' + name + '</h3></a>';
+                if (userId != CURRENT_USER_ID) {
+                    var name = type.firstName.charAt(0).toUpperCase() + type.firstName.slice(1).toLowerCase() + ' ' +
+                                               type.lastName.charAt(0).toUpperCase() + type.lastName.slice(1).toLowerCase();
+                    CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(userId, name);
+                    if (CURRENT_REJECT_LIST.includes(type.userId)) {
+                        inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
+                            '" class="list-group-item list-group-item-action active"><h3>' + name + '</h3></a>';
+                        SELECTED_LIST_ITEM.push(userId);
+                    } else {
+                        inputTextHtml = inputTextHtml + '<a href="#" id="' + userId +
+                            '" class="list-group-item list-group-item-action"><h3>' + name + '</h3></a>';
+                    }
                 }
             });
             inputTextHtml += '</div>';
@@ -227,12 +229,14 @@ function populateGifteeBox() {
         type: 'GET',
         url: BASE_URL + '/user/' + CURRENT_USER_ID + '/recipient',
         success: function(result){
-            CURRENT_RECIPIENT_USER_ID = parseInt(result.userId);
-            var name = result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1).toLowerCase() + ' ' +
-                  result.lastName.charAt(0).toUpperCase() + result.lastName.slice(1).toLowerCase();
-            CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(CURRENT_RECIPIENT_USER_ID, name);
-            $('#giftee').text('Your Secret Santa Recipient is: ' + name);
-            addButtonForRecipient();
+            if (result.userId != null) {
+                CURRENT_RECIPIENT_USER_ID = parseInt(result.userId);
+                var name = result.firstName.charAt(0).toUpperCase() + result.firstName.slice(1).toLowerCase() + ' ' +
+                      result.lastName.charAt(0).toUpperCase() + result.lastName.slice(1).toLowerCase();
+                CURRENT_OTHER_USER_ID_TO_NAME_MAP.set(CURRENT_RECIPIENT_USER_ID, name);
+                $('#giftee').text('Your Secret Santa Recipient is: ' + name);
+                addButtonForRecipient();
+            }
         },
         error: function() {
         }
@@ -337,19 +341,17 @@ function displayWishListItems(isAddOpen) {
 }
 
 function addWishListItemButtons(isAddOpen) {
-    var inputText = '<div class="col-md-12">';
+    var inputText = '<div class="col-md-12" id="wishListItemButtonDiv">';
     inputText += `
         <button id="removeWishListItemButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>DELETE</button>
     `;
     if (!isAddOpen) {
         inputText += `
             <button id="createWishListItemButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>ADD ITEM</button>
-            <button id="cancelWishListItemButton"  type="button" class="btn btn-lg btn-block btn-info" onClick=linkClick(this.id)>
-            <div class="col-md-12"><img src="img/home.jpg"></div>
-            </button>
         `}
     inputText += '</div>';
     $("#homeDiv").append(inputText);
+    addHomeButton("wishListItemButtonDiv");
 }
 
 function createWishListItemAction() {

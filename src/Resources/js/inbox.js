@@ -10,6 +10,7 @@ function loadInbox() {
     setNavigationActive("inbox", "home", "otherGifters", "admin");
     clearAllDivs();
     clearAllVariables();
+    addHomeButton("inboxDiv");
     getMessagesFromServer();
 }
 

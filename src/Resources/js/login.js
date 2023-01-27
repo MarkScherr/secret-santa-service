@@ -13,7 +13,7 @@ function loginAction() {
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
           </div>
-          <input type="text" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+          <input type="password" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
         </div>
 
         <div class="col-md-12">
@@ -105,7 +105,7 @@ function signUpAction() {
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
       </div>
-      <input type="text" id="passwordInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+      <input type="password" id="passwordInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <button id="registerButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>REGISTER</button>
     <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>RETURN</button>
@@ -150,7 +150,13 @@ function registerUser(user) {
         },
         success: function(data, status) {
             CURRENT_USER_ID = parseInt(data);
-            startApplication();
+            if (CURRENT_USER_ID == -1 ) {
+                alert("User name and password have already been chosen, "+
+                    "since you probably already created an account, text mark for your credentials :P");
+                loginAction();
+            } else {
+                startApplication();
+            }
         }
     });
 }
