@@ -49,14 +49,14 @@ function addOptInToggleToDiv() {
     <div class="col-md-12" id="optingDiv">
         <div id="snowButton" class="bg" onClick=linkClick(this.id)>
             <div class="centerer">
-                <a href="#" id="participationButton" class="button">I AM IN!</a>
+                <a href="#" id="participationButton" class="button">I AM IN</a>
             </div>
         </div>
 	</div>
     `);
     if (IS_ACTIVE == false) {
         $(".button").css("background", "#C54245");
-        $("#participationButton").text("I AM OUT!");
+        $("#participationButton").text("I AM OUT");
         $("#rejectGifteeButton").hide();
     }
 }
@@ -65,7 +65,7 @@ function snowAction() {
     if (IS_ACTIVE == false) {
         IS_ACTIVE = true;
         $(".button").css("background", "#007502");
-        $("#participationButton").text("I AM IN!");
+        $("#participationButton").text("I AM IN");
         if ($("#rejectGifteeButton").length === 0) {
             addRejectGifteeButton();
         }
@@ -73,7 +73,7 @@ function snowAction() {
     } else {
         IS_ACTIVE = false;
         $(".button").css("background", "#C54245");
-        $("#participationButton").text("I AM OUT!");
+        $("#participationButton").text("I AM OUT");
         $("#rejectGifteeButton").hide();
     }
     updateBackendActiveField();
@@ -101,9 +101,7 @@ function updateBackendActiveField() {
 function addRejectGifteeButton() {
     $("#optingDiv").append(`
         <div class="col-md-12" id="rejectGifteeDiv">
-            <div class="col-md-12">
-                <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>Avoid Giftee</button>
-            </div>
+                <button id="rejectGifteeButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>Avoid Participant</button>
             <div id="rejectListDiv"></div>
         </div>
     `);
@@ -215,7 +213,7 @@ function removeRejectIdFromUser(rejectToRemoveId) {
 
 function closeRejectGifteeAction() {
     $("#rejectListDiv").empty();
-    $('#closeRejectGifteeButton').text('Avoid Giftee');
+    $('#closeRejectGifteeButton').text('Avoid Participant');
     $('#closeRejectGifteeButton').attr("id","rejectGifteeButton");
     $('#rejectGifteeButton').attr("style", "background-color:#007502;");
 

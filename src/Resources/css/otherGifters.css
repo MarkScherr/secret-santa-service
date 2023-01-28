@@ -5,9 +5,11 @@
 .btn-link {
 	color: #ffffff;
     background-color: transparent;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
 }
 
 .btn-link:hover {
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
 	color: #ffffff;
 }
 
@@ -42,4 +44,5 @@
 
 .btn .btn-link .btn-block {
     text-align: center;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
 }

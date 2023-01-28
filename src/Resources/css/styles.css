@@ -5,10 +5,17 @@
 
 #navigation {
     background-color: #007502;
+    font-family: xmasFont;
 }
+
+@font-face {
+    font-family: stnick;
+    src: url(stnicholas.ttf);
+}
+
 @font-face {
     font-family: xmasFont;
-    src: url(stnicholas.ttf);
+    src: url(snowinter.ttf);
 }
 
 body {
@@ -16,39 +23,55 @@ body {
     #font-family: 'Snowinter', sans-serif;
     background: #000000;
 }
+
 #enterSiteDiv {
     padding: 40px 20px;
 }
+
 .btn-group-lg>.btn, .btn-lg  {
-    font-size: 32pt;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    font-size: 32px;
 }
 
 .navbar-brand {
-    font-size: 32pt;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    font-size: 40px;
+    font-weight: 400;
+    font-family: xmasFont;
 }
 
 .navbar-nav .nav-link {
-    font-size: 24pt;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    font-size: 32px;
+    font-weight: 400;
     text-align: center;
+    font-family: xmasFont;
 }
 
 .navbar-link {
-    font-size: 46pt;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    font-size: 46px;
 }
 
-.form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-append>.btn, .input-group-lg>.input-group-append>.input-group-text, .input-group-lg>.input-group-prepend>.btn, .input-group-lg>.input-group-prepend>.input-group-text {
-    font-size: 20pt;
-}
 
 .input-group-prepend {
-    width: 130px;
-    background-color: #e9ecef;
+    width: 140px;
+    background-color: #C54245;
+    color: #C54245;
+}
+
+.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle), .input-group>.input-group-append:last-child>.input-group-text:not(:last-child), .input-group>.input-group-append:not(:last-child)>.btn, .input-group>.input-group-append:not(:last-child)>.input-group-text, .input-group>.input-group-prepend>.btn, .input-group>.input-group-prepend>.input-group-text {
+    color: #ffffff;
+    background-color: #C54245;
+}
+
+.input-group input-group-lg {
 }
 
 .input-group-text {
     border: 0px;
     font-size: 32px;
-    font-weight: bold;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
 }
 
 #footerLinks, .centered-a {
@@ -73,32 +96,43 @@ body {
     background-color: #ffffff;
     color: #007502;
 }
+
 button {
     margin-top:17px;
 }
 
 a {
-   word-break: break-word;
+    font-family: stnick;
+    font-weight: bold;
+    word-break: break-word;
+    font-size: 24px;
 }
 
 h2 {
     margin-top:15px;
-    font-weight: bold;
 }
 
 h3 {
+    font-family: stnick;
+    font-weight: bold;
     margin-top:5px;
     font-size: 32px;
+    color: #000000
+}
+
+.form-control {
+    font-family: stnick;
+    font-size: 24px;
     font-weight: bold;
 }
 
 textarea {
+    font-family: stnick;
+    font-weight: bold;
     margin-top:5px;
     font-size: 32px;
-    font-weight: bold;
 }
 
 input {
     font-size: 32px;
-    font-weight: bold;
 }
