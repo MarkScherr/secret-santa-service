@@ -130,7 +130,7 @@ function displayUsers() {
         type: 'GET',
         url: BASE_URL + '/user/findAllActive',
         success: function(result){
-            var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:7px;">Select Giftee(s) whom you wish to not include in Secret Santa:</h2>';
+            var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;margin-top:7px;">Select People who you wish to exclude from giving gifts to:</h2>';
             $.each(result, function(index, type) {
                 var userId = type.userId;
                 if (userId != CURRENT_USER_ID) {
@@ -332,7 +332,7 @@ function displayWishListItems(isAddOpen) {
     var inputTextHtml = '<div class="list-group"><h2 style="color:#ffffff;">My Wishlist:</h2>';
     if (WISH_LIST_MAP.size > 0) {
         for (let [key, value] of WISH_LIST_MAP) {
-            inputTextHtml = inputTextHtml + '<a href="#" id="' + key +
+            inputTextHtml = inputTextHtml + '<a href="#" style="white-space: pre-line" id="' + key +
                 '" class="list-group-item list-group-item-action"><h3>' + value + '</h3></a>';
         }
     } else {

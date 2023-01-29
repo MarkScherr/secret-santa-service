@@ -74,13 +74,13 @@ function attachOtherGiftersAccordion() {
         console.log("value: " + value);
         inputText += '<h2>' + OTHER_GIFTEES_ID_NAME_MAP.get(key).get('name') +'\'s Wishlist:</h2>';
         if (value == null || value.length < 1) {
-            inputText += '<a href="#" class="list-group-item list-group-item-action">This user does not have a wish list yet</a>';
+            inputText += '<a href="#" class="list-group-item list-group-item-action" style="white-space: pre-line">This user does not have a wish list yet</a>';
         }
         for (var i = 0 ; i < value.length ; i++) {
             var wishListItem = value[i];
             wishListItem = linkify(wishListItem);
             if (!wishListItem.includes("<a")) {
-                wishListItem = '<a href="#" class="list-group-item list-group-item-action">' + wishListItem + '</a>';
+                wishListItem = '<a href="#" class="list-group-item list-group-item-action" style="white-space: pre-line">' + wishListItem + '</a>';
             }
             inputText += wishListItem;
         }
@@ -217,7 +217,7 @@ function populatePurchasedItemSection(userId) {
         var purchasedItem = purchasedItems[i];
         purchasedItem = linkify(purchasedItem);
         if (!purchasedItem.includes("<a")) {
-            purchasedItem = '<a href="#" class="list-group-item list-group-item-action">' + purchasedItem + '</a>';
+            purchasedItem = '<a href="#" class="list-group-item list-group-item-action" style="white-space: pre-line">' + purchasedItem + '</a>';
         }
         inputText += purchasedItem;
     }

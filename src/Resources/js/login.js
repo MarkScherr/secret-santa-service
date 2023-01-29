@@ -13,7 +13,7 @@ function loginAction() {
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
           </div>
-          <input type="password" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+          <input type="text" id="passwordInput" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
         </div>
 
         <div class="col-md-12" id="loginButtonDiv">
@@ -93,7 +93,7 @@ function signUpAction() {
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-lg">Phone #</span>
       </div>
-      <input id="phoneNumberInput" onkeydown="phoneNumberFormatter()" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+      <input id="phoneNumberInput" onkeydown="phoneNumberFormatter()" type="numeric" pattern="\d*" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <div class="input-group input-group-lg">
       <div class="input-group-prepend">
@@ -105,7 +105,7 @@ function signUpAction() {
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-lg">Password</span>
       </div>
-      <input type="password" id="passwordInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
+      <input type="text" id="passwordInput"class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" required>
     </div>
     <button id="registerButton"  type="button" class="btn btn-lg btn-block btn-success" onClick=linkClick(this.id)>REGISTER</button>
     <button id="returnButton"  type="button" class="btn btn-lg btn-block btn-danger" onClick=linkClick(this.id)>RETURN</button>
